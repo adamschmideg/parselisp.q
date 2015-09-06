@@ -20,7 +20,7 @@ c:{$["{"=*x;(`$c'n#'x)!c'(1+n:x?'":")_'x:d x;"["=*x;.Q.fc[c']d x;q=*x;$[1<+/inSt
 c:{$["{"=*x
      (`$c'n#'x)!c'(1+n:x?'":")_'x:d x
      "["=*x
-     c' d x
+     c' d x / could run in paralel
      q=*x
      $[1<+/inStr x; '`err; "",. x]
      "a">*x
