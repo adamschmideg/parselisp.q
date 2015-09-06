@@ -17,11 +17,22 @@ j:{$[10=abs t:@x;s$[|/x in a;,/f'x;x];99=t;e["{}"](j'!x),'":",'j'. x;-1<t;e["[]"
 inStr:{=\~("\\"=-1_q,x)<q=x};
 d:{$[1<n:(s:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0;1_'(0,&(inStr[x]&","=x)&1=n#s)_x:n#x;()]}
 c:{$["{"=*x;(`$c'n#'x)!c'(1+n:x?'":")_'x:d x;"["=*x;.Q.fc[c']d x;q=*x;$[1<+/inStr x;'`err;"",. x];"a">*x;"F"$x;"n"=*x;0n;"t"=*x]}
-k:{c x@&~inStr[x]&x in" \t\n\r"};
+c:{$["{"=*x
+     (`$c'n#'x)!c'(1+n:x?'":")_'x:d x
+     "["=*x
+     .Q.fc[c']d x
+     q=*x
+     $[1<+/inStr x; '`err; "",. x]
+     "a">*x
+     "F"$x
+     "n"=*x
+     0n
+     "t"=*x]}
+pars:{c x@&~inStr[x]&x in" \t\n\r"};
 
 \
 
-k j x:([]C:$`as`;b:01b;j:0N 2;z:0Nz,.z.z)
-k j x:"\"a \\"
-k"{},2]"
+/pars j x:([]C:$`as`;b:01b;j:0N 2;z:0Nz,.z.z)
+/pars j x:"\"a \\"
+/pars"{},2]"
 
