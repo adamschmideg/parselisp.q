@@ -16,18 +16,18 @@ j:{$[10=abs t:@x;s$[|/x in a;,/f'x;x];99=t;e["{}"](j'!x),'":",'j'. x;-1<t;e["[]"
 /disclose
 inStr:{=\~("\\"=-1_q,x)<q=x};
 d:{$[1<n:(s:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0;1_'(0,&(inStr[x]&","=x)&1=n#s)_x:n#x;()]}
-c:{$["{"=*x;(`$c'n#'x)!c'(1+n:x?'":")_'x:d x;"["=*x;.Q.fc[c']d x;q=*x;$[1<+/inStr x;'`err;"",. x];"a">*x;"F"$x;"n"=*x;0n;"t"=*x]}
-c:{$["{"=*x
+c:{$["{"=*x  /if dict
      (`$c'n#'x)!c'(1+n:x?'":")_'x:d x
-     "["=*x
-     c' d x / could run in paralel
-     q=*x
+     "["=*x  /if array
+     c' d x  /could run in paralel
+     q=*x    /if string
      $[1<+/inStr x; '`err; "",. x]
-     "a">*x
-     "F"$x
-     "n"=*x
+     "a">*x  /if digit
+     "F"$x   /convert to number
+     "n"=*x  /if null
      0n
-     "t"=*x]}
+     "t"=*x  /otherwise: true->1b; false->0b
+   ]}
 pars:{c x@&~inStr[x]&x in" \t\n\r"};
 
 \
