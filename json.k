@@ -16,8 +16,8 @@ j:{$[10=abs t:@x;s$[|/x in a;,/f'x;x];99=t;e["{}"](j'!x),'":",'j'. x;-1<t;e["[]"
 /disclose
 inStr:{=\~("\\"=-1_q,x)<q=x};
 split:{
-  $[1<n:(s:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0
-    1_'(0,&(inStr[x]&","=x)&1=n#s)_x:n#x
+  $[1<n:(levels:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0
+    1_'(0,&(inStr[x]&","=x)&1=n#levels)_x:n#x
     ()]}
 c:{$["{"=*x  /if dict
      (`$c'n#'x)!c'(1+n:x?'":")_'x:split x
