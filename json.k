@@ -15,11 +15,14 @@ j:{$[10=abs t:@x;s$[|/x in a;,/f'x;x];99=t;e["{}"](j'!x),'":",'j'. x;-1<t;e["[]"
 
 /disclose
 inStr:{=\~("\\"=-1_q,x)<q=x};
-d:{$[1<n:(s:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0;1_'(0,&(inStr[x]&","=x)&1=n#s)_x:n#x;()]}
+split:{
+  $[1<n:(s:+\inStr[x]*1 -1 1 -1"{}[]"?x)?0
+    1_'(0,&(inStr[x]&","=x)&1=n#s)_x:n#x
+    ()]}
 c:{$["{"=*x  /if dict
-     (`$c'n#'x)!c'(1+n:x?'":")_'x:d x
+     (`$c'n#'x)!c'(1+n:x?'":")_'x:split x
      "["=*x  /if array
-     c' d x  /could run in paralel
+     c' split x  /could run in paralel
      q=*x    /if string
      $[1<+/inStr x; '`err; "",. x]
      "a">*x  /if digit
