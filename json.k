@@ -1,6 +1,9 @@
 
 ex:"[1, 2, \n {\"kw\": 42}\n]";
 
+triml:{f:x ss "[",y,"]";(($f=!#f)?"0")_x}
+/ "foo \t"~triml["\t foo \t";" \t"]
+
 q:"\"";
 inStr:{=\~("\\"=-1_q,x)<q=x};
 depths:{+\inStr[x]*1 -1 1 -1"{}[]"?x}
