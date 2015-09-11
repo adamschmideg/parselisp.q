@@ -25,6 +25,14 @@ c:{$["{"=*x  /if dict
    ]}
 pars:{c x@&~inStr[x]&x in" \t\n\r"};
 
+ws:" \t\n"
+whereWs:{x ss "[",ws,"]"}
+idx2bool:{v:x#0b;v[y]:1b;v}
+split2:{
+  n:(d:depths[x])?0
+  r:1_'(0,&inStr[x]&idx2bool[n;whereWs@x]&1=n#d)_x:n#x
+  r@&0<#:'r}
+  
 /
 "[[   1   2 ] 5]"
  00010001000 / ws before char
