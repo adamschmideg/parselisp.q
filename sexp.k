@@ -5,8 +5,15 @@ triml:{f:x ss "[",y,"]";(($f=!#f)?"0")_x}
 / "foo \t"~triml["\t foo \t";" \t"]
 
 q:"\"";
+ws:" \t\n"
 inStr:{=\~("\\"=-1_q,x)<q=x};
 depths:{+\inStr[x]*1 -1 1 -1"{}[]"?x}
+whereWs:{x ss "[",ws,"]"}
+idx2bool:{v:x#0b;v[y]:1b;v}  / inverse of `where`
+split2:{
+  n:(d:depths[x])?0
+  r:1_'(0,&inStr[x]&idx2bool[n;whereWs@x]&1=n#d)_x:n#x
+  r@&0<#:'r}
 split:{
   $[1<n:(d:depths[x])?0
     1_'(0,&(inStr[x]&","=x)&1=n#d)_x:n#x
@@ -14,7 +21,7 @@ split:{
 c:{$["{"=*x  /if dict
      (`$c'n#'x)!c'(1+n:x?'":")_'x:split x
      "["=*x  /if array
-     c' split x  /could run in paralel
+     c' split2 x  /could run in paralel
      q=*x    /if string
      $[1<+/inStr x; '`err; "",. x]
      "a">*x  /if digit
@@ -25,13 +32,6 @@ c:{$["{"=*x  /if dict
    ]}
 pars:{c x@&~inStr[x]&x in" \t\n\r"};
 
-ws:" \t\n"
-whereWs:{x ss "[",ws,"]"}
-idx2bool:{v:x#0b;v[y]:1b;v}
-split2:{
-  n:(d:depths[x])?0
-  r:1_'(0,&inStr[x]&idx2bool[n;whereWs@x]&1=n#d)_x:n#x
-  r@&0<#:'r}
   
 /
 "[[   1   2 ] 5]"
