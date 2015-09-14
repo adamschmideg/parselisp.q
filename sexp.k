@@ -10,6 +10,7 @@ inStr:{=\~("\\"=-1_q,x)<q=x};
 depths:{+\inStr[x]*1 -1 1 -1"{}[]"?x}
 whereWs:{x ss "[",ws,"]"}
 idx2bool:{v:x#0b;v[y]:1b;v}  / inverse of `where`
+list2dict:{i:2*!_(#x)%2;x[i]!x[i+1]}
 split2:{
   n:(d:depths[x])?0
   r:1_'(0,&inStr[x]&idx2bool[n;whereWs@x]&1=n#d)_x:n#x
@@ -19,7 +20,7 @@ split:{
     1_'(0,&(inStr[x]&","=x)&1=n#d)_x:n#x
     ()]}
 c:{$["{"=*x  /if dict
-     (`$c'n#'x)!c'(1+n:x?'":")_'x:split x
+     list2dict[c'split2 x]
      "["=*x  /if array
      c' split2 x  /could run in paralel
      q=*x    /if string
